@@ -1,17 +1,22 @@
 <?php
 class ImageReceiver
 {
-
+    /**
+     * @param $postNumber
+     * @return mixed
+     */
     public function getPostUrl($postNumber)
     {
         $data = json_decode(file_get_contents('https://picsum.photos/list'), true);
         return $data[$postNumber]['post_url'];
     }
 
-
+    /**
+     * @param $postNumber
+     * @return bool|string
+     */
     public function getHtml($postNumber)
     {
-
         $ch = curl_init($this->getPostUrl($postNumber));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -26,8 +31,13 @@ class ImageReceiver
         return $response;
     }
 
-
-    public function Parse($p1, $p2, $p3)
+    /**
+     * @param $p1
+     * @param $p2
+     * @param $p3
+     * @return string
+     */
+    public function parse($p1, $p2, $p3)
     {
         $num1 = strpos($p1, $p2);
 
@@ -39,12 +49,22 @@ class ImageReceiver
         return strip_tags(substr($num2, 0, strpos($num2, $p3)));
     }
 
+    /**
+     * @param $postNumber
+     * @return string
+     */
     public function getImageUrl($postNumber)
     {
-        $string = $this->Parse($this->getHtml($postNumber), 'class="_2zEKz"', 'alt');
-        $string = $this->Parse($string, 'srcSet="', ',') . 'end';
-        $string = $this->Parse($string, 'http', 'end');
+        if ($this->parse($this->getHtml($postNumber), 'class="_2zEKz"', 'alt') === 'Error') {
+            do {
+                $postNumber = rand(0, 900);
+            } while ($this->parse($this->getHtml($postNumber), 'class="_2zEKz"', 'alt') === 'Error');
+        }
+        $string = $this->parse($this->getHtml($postNumber), 'class="_2zEKz"', 'alt');
+        $string = $this->parse($string, 'srcSet="', ',') . 'end';
+        $string = $this->parse($string, 'http', 'end');
+
         return $string;
     }
-}
 
+}
