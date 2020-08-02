@@ -5,11 +5,10 @@ $receiver = new ImageReceiver();
 <html>
 <head>
     <title>Grid</title>
-    <link media="handheld" rel="stylesheet" href="../styles/main.css">
-    <link media="screen" rel="stylesheet" href="../styles/main.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
     <meta name="viewport" content="width=device-width; initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 </head>
 <body>
@@ -19,7 +18,7 @@ $receiver = new ImageReceiver();
     <div class="box">
         <a data-fancybox="gallery" href="<?php echo $image?>"><img src="<?php echo $image?>"></a>
     </div>
-<?php }?>
+<?php };?>
 </div>
 </body>
 </html>
