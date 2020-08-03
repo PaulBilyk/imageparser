@@ -1,7 +1,7 @@
 <?php
 class Controller
 {
-    function changeDir($param)
+    function sendToDirectPage($param)
     {
         switch ($param)
         {

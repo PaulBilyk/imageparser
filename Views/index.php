@@ -14,7 +14,7 @@ $receiver = new ImageReceiver();
 <body>
 <div class="game-board">
 <?php for($i=0;$i<9;$i++){?>
-  <?php $image =$receiver->getImageUrl(rand(0,993))?>
+  <?php $image =$receiver->getImageUrl(rand(0,count($receiver::$imagePostUrlArray)))?>
     <div class="box">
         <a data-fancybox="gallery" href="<?php echo $image?>"><img src="<?php echo $image?>"></a>
     </div>
