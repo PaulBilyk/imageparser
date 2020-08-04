@@ -1,11 +1,11 @@
 <?php
 class ImageReceiver
 {
-    public static array $imagePostUrlArray;
+    public array $imagePostUrlArray;
 
     public function __construct()
     {
-        self::$imagePostUrlArray= $this->imagePostUrlToArray();
+        $this->imagePostUrlArray= $this->imagePostUrlToArray();
     }
 
     /**
@@ -29,7 +29,7 @@ class ImageReceiver
      */
     public function getHtml($postNumber)
     {
-        $ch = curl_init(self::$imagePostUrlArray[$postNumber]);
+        $ch = curl_init($this->imagePostUrlArray[$postNumber]);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -43,7 +43,7 @@ class ImageReceiver
 
         switch ($httpCode) {
             case '404':
-                        return $this->getHtml(rand(0, count(self::$imagePostUrlArray)));
+                        return $this->getHtml(rand(0, count($this->imagePostUrlArray)));
                         break;
             case '503':
                         return 'Error 503';
